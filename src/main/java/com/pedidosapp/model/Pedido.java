@@ -15,7 +15,7 @@ public class Pedido {
     private String cliente;
     private String producto;
     private int cantidad;
-    private String estado; // Propiedad 'estado'
+    private String estado; 
 
     public Pedido() {}
 
@@ -26,7 +26,6 @@ public class Pedido {
         this.estado = estado;
     }
 
-    // Getters y Setters
 
     public Long getId() {
         return id;
