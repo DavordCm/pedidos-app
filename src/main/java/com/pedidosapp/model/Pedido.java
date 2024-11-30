@@ -63,7 +63,7 @@ public class Pedido {
         return estado;
     }
 
-    public void setEstado(String estado) { // Este método faltaba
+    public void setEstado(String estado) { 
         this.estado = estado;
     }
 }
