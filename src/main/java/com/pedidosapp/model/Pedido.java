@@ -1,9 +1,7 @@
 package com.pedidosapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 
 @Entity
 public class Pedido {
@@ -12,20 +10,26 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false) 
     private String cliente;
+
+    @Column(nullable = false) 
     private String producto;
+
     private int cantidad;
-    private String estado; 
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false) 
+    private EstadoPedido estado;
 
     public Pedido() {}
 
-    public Pedido(String cliente, String producto, int cantidad, String estado) {
+    public Pedido(String cliente, String producto, int cantidad, EstadoPedido estado) {
         this.cliente = cliente;
         this.producto = producto;
         this.cantidad = cantidad;
         this.estado = estado;
     }
-
 
     public Long getId() {
         return id;
@@ -59,11 +63,15 @@ public class Pedido {
         this.cantidad = cantidad;
     }
 
-    public String getEstado() {
+    public EstadoPedido getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) { 
+    public void setEstado(EstadoPedido estado) {
         this.estado = estado;
+    }
+
+    public enum EstadoPedido {
+        PENDIENTE, PROCESADO, ENVIADO, ENTREGADO, CANCELADO
     }
 }

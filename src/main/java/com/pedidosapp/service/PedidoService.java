@@ -14,6 +14,10 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    public Pedido crearPedido(Pedido pedido) {
+        return pedidoRepository.save(pedido); 
+    }
+
     public List<Pedido> listarTodos() {
         return pedidoRepository.findAll();
     }
@@ -22,19 +26,14 @@ public class PedidoService {
         return pedidoRepository.findById(id);
     }
 
-    public Pedido crearPedido(Pedido pedido) {
-        // Verifica si el pedido tiene los campos obligatorios correctamente configurados
-        pedido.setEstado("Pendiente");  // Estado por defecto
+    public Pedido actualizarEstado(Long id, Pedido.EstadoPedido nuevoEstado) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+        pedido.setEstado(nuevoEstado);
         return pedidoRepository.save(pedido);
     }
 
-    public Pedido actualizarEstado(Long id, String nuevoEstado) {
-        Optional<Pedido> pedidoOpt = pedidoRepository.findById(id);
-        if (pedidoOpt.isPresent()) {
-            Pedido pedido = pedidoOpt.get();
-            pedido.setEstado(nuevoEstado); // Asegúrate de que el setter de estado esté disponible en la clase Pedido
-            return pedidoRepository.save(pedido);
-        }
-        return null;
+    public List<Pedido> buscarPorEstado(Pedido.EstadoPedido estado) {
+        return pedidoRepository.findByEstado(estado);
     }
 }
