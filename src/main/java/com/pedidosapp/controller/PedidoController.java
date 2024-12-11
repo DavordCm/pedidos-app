@@ -43,7 +43,6 @@ public class PedidoController {
     @PutMapping("/{id}/estado")
     public ResponseEntity<Pedido> actualizarEstado(@PathVariable Long id, @RequestParam Pedido.EstadoPedido estado) {
         try {
-            // Intentar actualizar el estado del pedido
             Pedido pedidoActualizado = pedidoService.actualizarEstado(id, estado);
             return ResponseEntity.ok(pedidoActualizado);
         } catch (RuntimeException e) {
