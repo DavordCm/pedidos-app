@@ -2,7 +2,6 @@ package com.pedidosapp.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
 public class Pedido {
 
